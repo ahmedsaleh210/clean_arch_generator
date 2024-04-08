@@ -1,39 +1,31 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+### clean_arch_generator
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+A Dart package to generate clean architecture files for Flutter projects.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+#### Usage
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+To use this package, run the following command in your terminal:
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```bash
+dart run clean_arch_generator:create --name <feature_name>
 ```
 
-## Additional information
+Replace `<feature_name>` with the name of the feature you want to generate files for.
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+#### Usage
+
+Once you've installed the package and provided the feature name, it will generate the following files:
+
+- **Domain:**
+  - Entities
+  - Use Cases
+- **Data:**
+  - Models
+  - Repositories
+  - Data Sources
+  - Dependency Injection
+- **Presentation:**
+  - Cubit
+  - Cubit State
+  - Screens
+  - Widgets
