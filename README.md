@@ -26,6 +26,5 @@ Once you've installed the package and provided the feature name, it will generat
   - Dependency Injection
 - **Presentation:**
   - Cubit
-  - Cubit State
   - Screens
   - Widgets
