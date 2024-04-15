@@ -94,11 +94,14 @@ class FeatureGenerator {
   String _getEntityContent(String featureName) {
     return """
 part of '../imports/domain_imports.dart';
-class ${upperCamelCaseFeatureName}Entity {
+class ${upperCamelCaseFeatureName}Entity extends Equatable {
   final int id;
   final String name;
 
   ${upperCamelCaseFeatureName}Entity({required this.id, required this.name});
+
+  @override
+  List<Object> get props => [id, name];
 }
   """;
   }
