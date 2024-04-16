@@ -8,5 +8,5 @@ void main(List<String> arguments) {
   var parsedArgs = parser.parse(arguments);
 
   final featureName = parsedArgs['name'] as String;
-  FeatureGenerator().generateCleanFiles(featureName);
+  FeatureGenerator(featureName).generateCleanFiles();
 }

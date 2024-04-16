@@ -17,71 +17,48 @@ extension StringExtension on String {
 }
 
 class FeatureGenerator {
-  late String upperCamelCaseFeatureName;
-  late String lowerCamelCaseFeatureName;
-  Future<void> generateCleanFiles(String featureName) async {
-    upperCamelCaseFeatureName = featureName.getUpperCamelCase();
-    lowerCamelCaseFeatureName = featureName.getLowerCamelCase();
+  final String upperCamelCaseFeatureName;
+  final String lowerCamelCaseFeatureName;
+  final String featureName;
+
+FeatureGenerator(this.featureName)
+      : assert(featureName.isNotEmpty),
+        upperCamelCaseFeatureName = featureName.getUpperCamelCase(),
+        lowerCamelCaseFeatureName = featureName.getLowerCamelCase();
+
+  Future<void> generateCleanFiles() async {
     final baseDir = 'lib/src/features/$featureName';
 
     if (!Directory(baseDir).existsSync()) {
       Directory(baseDir).createSync(recursive: true);
     }
 
-    _createAndWriteFile(
-      '$baseDir/domain/entities/${featureName}_entity.dart',
-      _getEntityContent(featureName),
-    );
+    final fileMap = {
+      '$baseDir/domain/entities/${featureName}_entity.dart': _getEntityContent,
+      '$baseDir/domain/use_case/fetch_${featureName}_use_case.dart':
+          _getUseCaseContent,
+      '$baseDir/domain/imports/domain_imports.dart': _getDomainImportsContent,
+      '$baseDir/data/models/${featureName}_model.dart': _getModelContent,
+      '$baseDir/data/repositories/${featureName}_repository.dart':
+          _getRepositoryContent,
+      '$baseDir/data/data_sources/${featureName}_data_source.dart':
+          _getDataSourceContent,
+      '$baseDir/data/di/${featureName}_di.dart': _getServiceLocatorContent,
+      '$baseDir/data/imports/data_imports.dart': _getDataImportsContent,
+      '$baseDir/presentation/cubit/${featureName}_cubit.dart': _getBlocContent,
+      '$baseDir/presentation/cubit/${featureName}_state.dart':
+          _getBlocStateContent,
+      '$baseDir/presentation/imports/presentation_imports.dart':
+          _getPresentationImportsContent,
+      '$baseDir/presentation/screens/${featureName}_screen.dart':
+          _getPresentationScreenContent,
+      '$baseDir/presentation/widgets/${featureName}_widget.dart':
+          _getPresentationWidgetContent,
+    };
 
-    _createAndWriteFile(
-      '$baseDir/domain/use_case/fetch_${featureName}_use_case.dart',
-      _getUseCaseContent(featureName),
-    );
-
-    _createAndWriteFile(
-      '$baseDir/domain/imports/domain_imports.dart',
-      _getDomainImportsContent(featureName),
-    );
-
-    _createAndWriteFile(
-      '$baseDir/data/models/${featureName}_model.dart',
-      _getModelContent(featureName),
-    );
-
-    _createAndWriteFile(
-      '$baseDir/data/repositories/${featureName}_repository.dart',
-      _getRepositoryContent(featureName),
-    );
-
-    _createAndWriteFile(
-      '$baseDir/data/data_sources/${featureName}_data_source.dart',
-      _getDataSourceContent(featureName),
-    );
-    _createAndWriteFile(
-      '$baseDir/data/di/${featureName}_di.dart',
-      _getServiceLocatorContent(featureName),
-    );
-    _createAndWriteFile(
-      '$baseDir/data/imports/data_imports.dart',
-      _getDataImportsContent(featureName),
-    );
-    _createAndWriteFile(
-      '$baseDir/presentation/cubit/${featureName}_cubit.dart',
-      _getBlocContent(featureName),
-    );
-    _createAndWriteFile(
-      '$baseDir/presentation/cubit/${featureName}_state.dart',
-      _getBlocStateContent(featureName),
-    );
-    _createAndWriteFile(
-        '$baseDir/presentation/imports/presentation_imports.dart',
-        _getPresentationImportsContent(featureName));
-    _createAndWriteFile(
-        '$baseDir/presentation/screens/${featureName}_screen.dart',
-        _getPresentationScreenContent(featureName));
-    _createAndWriteFile(
-        '$baseDir/presentation/widgets/${featureName}_widget.dart',
-        _getPresentationWidgetContent(featureName));
+    for (final entry in fileMap.entries) {
+      _createAndWriteFile(entry.key, entry.value());
+    }
   }
 
   Future<File> _createAndWriteFile(String path, String content) async {
@@ -91,7 +68,7 @@ class FeatureGenerator {
     return file;
   }
 
-  String _getEntityContent(String featureName) {
+  String _getEntityContent() {
     return """
 part of '../imports/domain_imports.dart';
 class ${upperCamelCaseFeatureName}Entity extends Equatable {
@@ -106,7 +83,7 @@ class ${upperCamelCaseFeatureName}Entity extends Equatable {
   """;
   }
 
-  String _getUseCaseContent(String featureName) {
+  String _getUseCaseContent() {
     return """
 part of '../imports/domain_imports.dart';
 
@@ -122,7 +99,7 @@ class Fetch${upperCamelCaseFeatureName}UseCase extends UseCase<List<${upperCamel
 """;
   }
 
-  String _getDomainImportsContent(String featureName) {
+  String _getDomainImportsContent() {
     return """
 import 'package:flutter_base/src/core/error/failure.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -133,7 +110,7 @@ part '../entities/${featureName}_entity.dart';
 """;
   }
 
-  String _getModelContent(String featureName) {
+  String _getModelContent() {
     return """
 part of '../imports/data_imports.dart';
 class ${upperCamelCaseFeatureName}Model extends ${upperCamelCaseFeatureName}Entity {
@@ -142,7 +119,7 @@ class ${upperCamelCaseFeatureName}Model extends ${upperCamelCaseFeatureName}Enti
 """;
   }
 
-  String _getRepositoryContent(String featureName) {
+  String _getRepositoryContent() {
     return """
 part of '../imports/data_imports.dart';
 
@@ -162,7 +139,7 @@ class ${upperCamelCaseFeatureName}RepositoryImpl implements ${upperCamelCaseFeat
   """;
   }
 
-  String _getDataSourceContent(String featureName) {
+  String _getDataSourceContent() {
     return """
 part  of '../imports/data_imports.dart';
 abstract class ${upperCamelCaseFeatureName}DataSource {
@@ -182,7 +159,7 @@ class ${upperCamelCaseFeatureName}DataSourceImpl implements ${upperCamelCaseFeat
   """;
   }
 
-  String _getServiceLocatorContent(String featureName) {
+  String _getServiceLocatorContent() {
     return """
 part of '../imports/data_imports.dart';
 void setUp${upperCamelCaseFeatureName}Dependencies() {
@@ -205,7 +182,7 @@ void setUp${upperCamelCaseFeatureName}Dependencies() {
 """;
   }
 
-  String _getDataImportsContent(String featureName) {
+  String _getDataImportsContent() {
     return """
 import 'package:flutter_base/src/core/error/failure.dart';
 import 'package:flutter_base/src/core/extensions/error_handler_extension.dart';
@@ -221,7 +198,7 @@ part '../di/${featureName}_di.dart';
   }
 
   //presentation
-  String _getBlocContent(String featureName) {
+  String _getBlocContent() {
     final usecaseName = 'Fetch${upperCamelCaseFeatureName}UseCase';
     return """
 part of '../imports/presentation_imports.dart';
@@ -251,7 +228,7 @@ class ${upperCamelCaseFeatureName}Cubit extends Cubit<${upperCamelCaseFeatureNam
 """;
   }
 
-  String _getBlocStateContent(String featureName) {
+  String _getBlocStateContent() {
     return """
 part of '../imports/presentation_imports.dart';
 final class ${upperCamelCaseFeatureName}State extends Equatable {
@@ -290,7 +267,7 @@ final class ${upperCamelCaseFeatureName}State extends Equatable {
 """;
   }
 
-  String _getPresentationScreenContent(String featureName) {
+  String _getPresentationScreenContent() {
     return '''
 part of '../imports/presentation_imports.dart';
 
@@ -322,13 +299,13 @@ class _${upperCamelCaseFeatureName}View extends StatelessWidget {
 ''';
   }
 
-  String _getPresentationWidgetContent(String featureName) {
+  String _getPresentationWidgetContent() {
     return '''
 part of '../imports/presentation_imports.dart';
 ''';
   }
 
-  String _getPresentationImportsContent(String featureName) {
+  String _getPresentationImportsContent() {
     return """
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
