@@ -127,7 +127,7 @@ void setUp${upperCamelCaseFeatureName}Dependencies() {
 import 'package:flutter_base/src/core/error/failure.dart';
 import 'package:flutter_base/src/core/extensions/error_handler_extension.dart';
 import 'package:multiple_result/multiple_result.dart';
-import 'package:flutter_base/src/config/res/constans_manager.dart';
+import 'package:flutter_base/src/config/res/constants_manager.dart';
 import '../../domain/imports/domain_imports.dart';
 
 part '../data_sources/${featureName}_data_source.dart';
@@ -249,7 +249,7 @@ part of '../imports/presentation_imports.dart';
     return """
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_base/src/config/res/constans_manager.dart';
+import 'package:flutter_base/src/config/res/constants_manager.dart';
 import 'package:flutter_base/src/core/shared/base_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/imports/domain_imports.dart';

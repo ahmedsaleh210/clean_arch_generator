@@ -16,7 +16,7 @@ part of '../imports/presentation_imports.dart';
 
 class ${upperCamelCaseFeatureName}Cubit extends Cubit<${upperCamelCaseFeatureName}State> {
   final $repositoryName ${lowerCamelCaseFeatureName}Repository;
-  ${upperCamelCaseFeatureName}Cubit(this.${upperCamelCaseFeatureName}Repository) : super(${upperCamelCaseFeatureName}State.initial());
+  ${upperCamelCaseFeatureName}Cubit(this.${lowerCamelCaseFeatureName}Repository) : super(${upperCamelCaseFeatureName}State.initial());
 
   void fetch$upperCamelCaseFeatureName() async {
     final result = await ${lowerCamelCaseFeatureName}Repository.get$upperCamelCaseFeatureName();
@@ -120,7 +120,7 @@ part of '../imports/presentation_imports.dart';
     return """
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_base/src/config/res/constans_manager.dart';
+import 'package:flutter_base/src/config/res/constants_manager.dart';
 import 'package:flutter_base/src/core/shared/base_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/imports/data_imports.dart';
@@ -153,7 +153,7 @@ class ${upperCamelCaseFeatureName}Model {
     return """
 part of '../imports/data_imports.dart';
 
-class ${upperCamelCaseFeatureName}Repository implements ${upperCamelCaseFeatureName}Repository {
+class ${upperCamelCaseFeatureName}Repository {
   Future<Result<List<${upperCamelCaseFeatureName}Model>, Failure>> get$upperCamelCaseFeatureName() async {
     return await Future.value([
       ${upperCamelCaseFeatureName}Model(id: 1, name: 'First $upperCamelCaseFeatureName'),
@@ -167,10 +167,14 @@ class ${upperCamelCaseFeatureName}Repository implements ${upperCamelCaseFeatureN
 
   String getDataImports() {
     return """
+import 'package:flutter_base/src/core/extensions/error_handler_extension.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:flutter_base/src/core/error/failure.dart';
-part '../repositories/${featureName}_repository.dart';
-part '../models/${featureName}_model.dart';
+
+import '../../../../config/res/constants_manager.dart';
+part '../repositories/product_details_repository.dart';
+part '../models/product_details_model.dart';
+part '../di/product_details_di.dart';
     """;
   }
 
