@@ -10,12 +10,13 @@ class _CleanArchtectureContent {
         lowerCamelCaseFeatureName = featureName.getLowerCamelCase();
   String getEntityContent() {
     return """
+import 'package:equatable/equatable.dart';
 part of '../imports/domain_imports.dart';
 class ${upperCamelCaseFeatureName}Entity extends Equatable {
   final int id;
   final String name;
 
-  ${upperCamelCaseFeatureName}Entity({required this.id, required this.name});
+  const ${upperCamelCaseFeatureName}Entity({required this.id, required this.name});
 
   @override
   List<Object> get props => [id, name];
