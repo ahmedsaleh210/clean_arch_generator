@@ -182,7 +182,7 @@ part '../di/product_details_di.dart';
     return """
 part of '../imports/data_imports.dart';
 void register${upperCamelCaseFeatureName}ServiceLocator() {
-  ConstantManager.registerLazySingleton<${upperCamelCaseFeatureName}Repository>(
+  ConstantManager.serviceLocator.registerLazySingleton<${upperCamelCaseFeatureName}Repository>(
     () => ${upperCamelCaseFeatureName}Repository(),
   );
 }
