@@ -68,8 +68,6 @@ class FeatureGenerator {
           repositoryArchitectureGenerator.getRepositoryContent,
       '$baseDir/data/imports/data_imports.dart':
           repositoryArchitectureGenerator.getDataImports,
-      '$baseDir/data/di/${featureName}_di.dart':
-          repositoryArchitectureGenerator.getServiceLocatorContent,
       '$baseDir/presentation/cubit/${featureName}_cubit.dart':
           repositoryArchitectureGenerator.getBlocContent,
       '$baseDir/presentation/cubit/${featureName}_state.dart':

@@ -89,7 +89,7 @@ class ${upperCamelCaseFeatureName}Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ${upperCamelCaseFeatureName}Cubit(
-        ConstantManager.serviceLocator<${upperCamelCaseFeatureName}Repository>(),
+        ${upperCamelCaseFeatureName}Repository>(),
       )..fetch$upperCamelCaseFeatureName(),
       child: const _${upperCamelCaseFeatureName}View(),
     );
@@ -174,18 +174,7 @@ import 'package:flutter_base/src/core/error/failure.dart';
 import '../../../../config/res/constants_manager.dart';
 part '../repositories/product_details_repository.dart';
 part '../models/product_details_model.dart';
-part '../di/product_details_di.dart';
     """;
   }
 
-  String getServiceLocatorContent() {
-    return """
-part of '../imports/data_imports.dart';
-void register${upperCamelCaseFeatureName}ServiceLocator() {
-  ConstantManager.serviceLocator.registerLazySingleton<${upperCamelCaseFeatureName}Repository>(
-    () => ${upperCamelCaseFeatureName}Repository(),
-  );
-}
-  """;
-  }
 }
