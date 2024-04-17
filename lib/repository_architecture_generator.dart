@@ -89,7 +89,7 @@ class ${upperCamelCaseFeatureName}Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ${upperCamelCaseFeatureName}Cubit(
-        ${upperCamelCaseFeatureName}Repository>(),
+        ${upperCamelCaseFeatureName}Repository(),
       )..fetch$upperCamelCaseFeatureName(),
       child: const _${upperCamelCaseFeatureName}View(),
     );
@@ -120,6 +120,7 @@ part of '../imports/presentation_imports.dart';
     return """
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_base/src/config/res/constants_manager.dart';
 import 'package:flutter_base/src/core/shared/base_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/imports/data_imports.dart';
@@ -170,6 +171,7 @@ import 'package:flutter_base/src/core/extensions/error_handler_extension.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:flutter_base/src/core/error/failure.dart';
 
+import '../../../../config/res/constants_manager.dart';
 part '../repositories/product_details_repository.dart';
 part '../models/product_details_model.dart';
     """;
