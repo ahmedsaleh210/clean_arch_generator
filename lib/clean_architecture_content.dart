@@ -10,7 +10,6 @@ class _CleanArchtectureContent {
         lowerCamelCaseFeatureName = featureName.getLowerCamelCase();
   String getEntityContent() {
     return """
-import 'package:equatable/equatable.dart';
 part of '../imports/domain_imports.dart';
 class ${upperCamelCaseFeatureName}Entity extends Equatable {
   final int id;
@@ -46,6 +45,7 @@ import 'package:flutter_base/src/core/error/failure.dart';
 import 'package:multiple_result/multiple_result.dart';
 import '../../../../core/standard/use_case.dart';
 import '../../data/imports/data_imports.dart';
+import 'package:equatable/equatable.dart';
 part '../use_case/fetch_${featureName}_use_case.dart';
 part '../entities/${featureName}_entity.dart';
 """;
@@ -89,7 +89,7 @@ abstract class ${upperCamelCaseFeatureName}DataSource {
 
 class ${upperCamelCaseFeatureName}DataSourceImpl implements ${upperCamelCaseFeatureName}DataSource {
   @override
-  Future<List<${upperCamelCaseFeatureName}Model>> fetch${upperCamelCaseFeatureName}Data() {
+  Future<List<${upperCamelCaseFeatureName}Model>> fetch${upperCamelCaseFeatureName}Data() async {
     return await Future.value([
       ${upperCamelCaseFeatureName}Model(id: 1, name: 'First $upperCamelCaseFeatureName'),
       ${upperCamelCaseFeatureName}Model(id: 2, name: 'Second $upperCamelCaseFeatureName'),
