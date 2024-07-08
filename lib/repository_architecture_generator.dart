@@ -23,13 +23,13 @@ class ${upperCamelCaseFeatureName}Cubit extends Cubit<${upperCamelCaseFeatureNam
     result.when(
       ($lowerCamelCaseFeatureName) => emit(
         state.copyWith(
-          baseState: BaseState.success,
+          baseStatus: BaseStatus.success,
           $lowerCamelCaseFeatureName: $lowerCamelCaseFeatureName,
         ),
       ),
       (error) => emit(
         state.copyWith(
-          baseState: BaseState.error,
+          baseStatus: baseStatus.error,
           errorMessage: error.message,
         ),
       ),
@@ -43,37 +43,37 @@ class ${upperCamelCaseFeatureName}Cubit extends Cubit<${upperCamelCaseFeatureNam
     return """
 part of '../imports/presentation_imports.dart';
 final class ${upperCamelCaseFeatureName}State extends Equatable {
-  final BaseState baseState;
+  final BaseStatus baseStatus;
   final List<${upperCamelCaseFeatureName}Model> $lowerCamelCaseFeatureName;
   final String errorMessage;
 
   const ${upperCamelCaseFeatureName}State({
-    required this.baseState,
+    required this.baseStatus,
     required this.$lowerCamelCaseFeatureName,
     this.errorMessage = ConstantManager.emptyText,
   });
 
   factory ${upperCamelCaseFeatureName}State.initial() {
     return const ${upperCamelCaseFeatureName}State(
-      baseState: BaseState.initial,
+      baseStatus: BaseStatus.initial,
       $lowerCamelCaseFeatureName: [],
     );
   }
 
   ${upperCamelCaseFeatureName}State copyWith({
-    BaseState? baseState,
+    BaseStatus? baseStatus,
     List<${upperCamelCaseFeatureName}Model>? $lowerCamelCaseFeatureName,
     String? errorMessage,
   }) {
     return ${upperCamelCaseFeatureName}State(
-      baseState: baseState ?? this.baseState,
+      baseStatus: baseStatus ?? this.baseStatus,
       $lowerCamelCaseFeatureName: $lowerCamelCaseFeatureName ?? this.$lowerCamelCaseFeatureName,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object> get props => [$lowerCamelCaseFeatureName,baseState, errorMessage];
+  List<Object> get props => [$lowerCamelCaseFeatureName,baseStatus, errorMessage];
 }
 """;
   }
