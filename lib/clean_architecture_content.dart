@@ -232,7 +232,7 @@ class _${upperCamelCaseFeatureName}View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: ColorManager.scaffoldBackground,
+      backgroundColor: AppColors.scaffoldBackground,
       body: SizedBox(),
     );
   }
