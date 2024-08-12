@@ -22,9 +22,10 @@ Once you've installed the package and provided the feature name, it will generat
 - **Data:**
   - Models
   - Repositories
-  - Data Sources
   - Dependency Injection
 - **Presentation:**
   - Cubit
   - Screens
   - Widgets
+- **DI:**
+  - Dependency Injection setup
