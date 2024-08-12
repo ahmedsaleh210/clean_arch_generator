@@ -37,7 +37,7 @@ class FeatureGenerator {
           cleanArchtectureContent.getRepositoryContent,
       '$baseDir/data/data_sources/${featureName}_data_source.dart':
           cleanArchtectureContent.getDataSourceContent,
-      '$baseDir/data/di/${featureName}_di.dart':
+      '$baseDir/di/${featureName}_di.dart':
           cleanArchtectureContent.getServiceLocatorContent,
       '$baseDir/data/imports/data_imports.dart':
           cleanArchtectureContent.getDataImportsContent,

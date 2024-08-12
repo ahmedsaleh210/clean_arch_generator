@@ -1,4 +1,5 @@
 part of 'clean_arch_generator.dart';
+
 class _CleanArchtectureContent {
   final String featureName;
   final String upperCamelCaseFeatureName;
@@ -100,29 +101,6 @@ class ${upperCamelCaseFeatureName}DataSourceImpl implements ${upperCamelCaseFeat
   """;
   }
 
-  String getServiceLocatorContent() {
-    return """
-part of '../imports/data_imports.dart';
-void setUp${upperCamelCaseFeatureName}Dependencies() {
-  ConstantManager.serviceLocator
-      .registerLazySingleton<Fetch${upperCamelCaseFeatureName}UseCase>(
-    () => Fetch${upperCamelCaseFeatureName}UseCase(
-        ${lowerCamelCaseFeatureName}Repository: ConstantManager.serviceLocator<${upperCamelCaseFeatureName}Repository>()),
-  );
-
-  ConstantManager.serviceLocator.registerLazySingleton<${upperCamelCaseFeatureName}Repository>(
-    () => ${upperCamelCaseFeatureName}RepositoryImpl(
-      dataSource: ConstantManager.serviceLocator<${upperCamelCaseFeatureName}DataSource>(),
-    ),
-  );
-
-  ConstantManager.serviceLocator.registerLazySingleton<${upperCamelCaseFeatureName}DataSource>(
-    () => ${upperCamelCaseFeatureName}DataSourceImpl(),
-  );
-}
-""";
-  }
-
   String getDataImportsContent() {
     return """
 import 'package:flutter_base/src/core/error/failure.dart';
@@ -134,7 +112,6 @@ import '../../domain/imports/domain_imports.dart';
 part '../data_sources/${featureName}_data_source.dart';
 part '../models/${featureName}_model.dart';
 part '../repositories/${featureName}_repository.dart';
-part '../di/${featureName}_di.dart';
 """;
   }
 
@@ -261,5 +238,31 @@ part '../cubit/${featureName}_state.dart';
 part '../screens/${featureName}_screen.dart';
 part '../widgets/${featureName}_widget.dart';
     """;
+  }
+
+  String getServiceLocatorContent() {
+    return """
+import '../../../config/res/constants_manager.dart';
+import '../data/imports/data_imports.dart';
+import '../domain/imports/domain_imports.dart';
+
+void setUp${upperCamelCaseFeatureName}Dependencies() {
+  ConstantManager.serviceLocator
+      .registerLazySingleton<Fetch${upperCamelCaseFeatureName}UseCase>(
+    () => Fetch${upperCamelCaseFeatureName}UseCase(
+        ${lowerCamelCaseFeatureName}Repository: ConstantManager.serviceLocator<${upperCamelCaseFeatureName}Repository>()),
+  );
+
+  ConstantManager.serviceLocator.registerLazySingleton<${upperCamelCaseFeatureName}Repository>(
+    () => ${upperCamelCaseFeatureName}RepositoryImpl(
+      dataSource: ConstantManager.serviceLocator<${upperCamelCaseFeatureName}DataSource>(),
+    ),
+  );
+
+  ConstantManager.serviceLocator.registerLazySingleton<${upperCamelCaseFeatureName}DataSource>(
+    () => ${upperCamelCaseFeatureName}DataSourceImpl(),
+  );
+}
+""";
   }
 }

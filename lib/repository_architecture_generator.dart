@@ -176,5 +176,4 @@ part '../repositories/product_details_repository.dart';
 part '../models/product_details_model.dart';
     """;
   }
-
 }
