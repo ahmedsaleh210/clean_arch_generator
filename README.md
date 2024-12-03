@@ -10,6 +10,11 @@ To use this package, run the following command in your terminal:
 dart run clean_arch_generator:create --name <feature_name>
 ```
 
+For Generating MVI Architecture Only use this command
+
+```bash
+dart run clean_arch_generator:create_repo_only --name <feature_name>
+```
 Replace `<feature_name>` with the name of the feature you want to generate files for.
 
 #### Usage
